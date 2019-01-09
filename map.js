@@ -62,12 +62,12 @@ d3.csv('weatherAUS_agg.csv', function(data){
 })
 
 // Colors
-var colormap = d3.scaleOrdinal(d3.schemeCategory20);
+var colormap = d3.scaleOrdinal(d3.schemeCategory20)
 
 // Projection : a modifier pour changer la carte (taille, position etc...)
 var projection = d3.geoMercator()
 .translate([ width/2, height/2 ])
-.scale(500)
+.scale(600)
 .center([ 132, -28 ])
 
 // Path
@@ -113,7 +113,6 @@ changeVariable('MinTemp');
 
 // Enleve le plot d'une station (une ligne)
 function removePlot(Station){
-  console.log(111)
   d3.selectAll('#' + Station).remove()
   d3.selectAll('.' + Station).remove()
 }
@@ -135,8 +134,6 @@ function plotChart(Station, col){
 
 // Plot lineChart
 function lineChart(array, col, Station){
-  console.log(Station)
-  
   // 113 est le nombre de valeur max pour une ville
   x_chart.domain([0, 113])
   
@@ -150,8 +147,7 @@ function lineChart(array, col, Station){
   	.attr('class', 'line')
   	.attr('id', Station)
   	.attr('d', line)
-  	.attr('stroke', col)
-  	.attr('fill', col)
+  	.style('stroke', col)
   
   g_chart.append('text')
   	.attr('class', Station)
@@ -159,7 +155,7 @@ function lineChart(array, col, Station){
   	.text(Station)
   	.attr('x', x_chart(100))
   	.attr('y', y_chart(array[0][varToPlot]))
-  	.attr('fill', col)
+  	.style('fill', col)
   
 }
 
@@ -208,7 +204,6 @@ var brush = d3.brush()
 
 // Create brush function redraw scatterplot with selection
 function brushed() {
-  console.log(10)
   if (d3.event.selection != null){
     
     var selection = d3.event.selection;
@@ -219,19 +214,21 @@ function brushed() {
         y1 = selection[1][1];
     
     // Met les cercles de la selection en "brushed" et appelle la fct de plot
-    d3.selectAll('.non_brushed')
-    	.attr('class', function(d,i){
-      console.log(d['Location'])
-      var cx = d3.select(this).attr("cx"),
-          cy = d3.select(this).attr("cy");
-      if(x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1){
-        // Call plot function
-        plotChart(d.Station, colormap(i))
-        return 'brushed'
-      } else{
-        removePlot(d.Station)
-        return 'non_brushed'
-      } })
+    circles.attr('class', function(d,i){
+      if(d3.select(this).attr('class', 'non_brushed')){
+        console.log(d['Location'])
+        var cx = d3.select(this).attr("cx"),
+            cy = d3.select(this).attr("cy");
+        if(x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1){
+          // Call plot function
+          plotChart(d.Station, colormap(i))
+          return 'brushed'
+        } else{
+          removePlot(d.Station)
+          return 'non_brushed'
+        }
+      }
+    })
   }
 }
 
