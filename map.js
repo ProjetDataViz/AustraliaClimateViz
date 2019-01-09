@@ -1,5 +1,5 @@
 // Dimensions
-var margins = {top:30, bottom:30, left:30, right:30}
+var margins = {top:30, bottom:30, left:30, right:50}
 var width = 500 - margins.left - margins.right;
 var height = 460 - margins.top - margins.bottom;
 
@@ -154,7 +154,7 @@ function lineChart(array, col, Station){
   	.attr('class', Station)
   	.attr('id', 'textChart')
   	.text(Station)
-  	.attr('x', x_chart(130))
+  	.attr('x', x_chart(105))
   	.attr('y', y_chart(array[0][varToPlot]))
   	.style('fill', col)
   
