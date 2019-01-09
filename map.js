@@ -1,7 +1,7 @@
 // Dimensions
 var margins = {top:30, bottom:30, left:30, right:30}
-var width = 430 - margins.left - margins.right;
-var height = 400 - margins.top - margins.bottom;
+var width = 500 - margins.left - margins.right;
+var height = 460 - margins.top - margins.bottom;
 
 arrayTest = [10, 12, 4, 8, 10, 2, 0, 10, 20];
 
