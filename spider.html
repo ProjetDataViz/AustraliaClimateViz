@@ -254,6 +254,7 @@ var svg = d3.select('body').append('svg')
 //svg.append('g').classed('single', 1).datum(getData()).call(chart);
 param = extractUrlParams();
 ville = param['city'];
+console.log(ville);
 d3.csv("donnees.csv", function(d) {
   if (d.Location==ville){
     return {
