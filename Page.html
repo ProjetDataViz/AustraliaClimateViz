@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<head>
+<meta charset="utf-8">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
+<style>
+.staterect {
+    fill: rgba(15,30,150,0.33);
+    stroke: #555;
+}
+text {
+    font-family: sans-serif;
+    font-size: 11px;
+    fill: #333;
+}
+text.year {
+    font-size: 24px;
+    font-weight: 700;
+    fill: #555;
+}
+input{
+  border-radius:5px;
+  padding:5px 10px;
+  background:#999;
+  border:0;
+  color:#fff;
+}
+#inds{
+  position:absolute;
+  top:10px;
+  left:10px;
+}
+.block{
+      margin: 20px;
+      display: inline-block;
+    }
+    .map{
+      fill: steelblue;
+      opacity: 0.5;
+    }
+    .line {
+      fill: none;
+      stroke-width: 1.5px;
+    }
+    circle{
+      stroke-width: 2px;  
+    }
+    .axis path, .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    .brushed {
+      stroke: #8e1b54;
+      opacity: 1.0;
+    }
+    .non_brushed {
+      opacity: 0.7;
+    }
+
+</style>
+
+<!-- scripts -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script>
+    // show the given page, hide the rest
+    function show(elementID) {
+        // try to find the requested page and alert if it's not found
+        var ele = document.getElementById(elementID);
+        if (!ele) {
+            alert("no such element");
+            return;
+        }
+
+        // get all pages, loop through them and hide them
+        var pages = document.getElementsByClassName('page');
+        for(var i = 0; i < pages.length; i++) {
+            pages[i].style.display = 'none';
+        }
+
+        // then show the requested page
+        ele.style.display = 'block';
+
+    }
+</script>
+</head>
+
+<body>
+
+<div class="w3-card-4">
+
+
+<div class="w3-container w3-theme w3-card">
+  <a class="w3-bar-item w3-button"><h1>AustViz</h1></a>
+  <a href="#" class="w3-bar-item w3-button">Presentation</a>
+  <a href="#Mapping" class="w3-bar-item w3-button">Carte intéractive</a>
+  <a href="#Seasons" class="w3-bar-item w3-button">Etude des saisons et population</a>
+  <a href="#" class="w3-bar-item w3-button">El nino</a>
+</div>
+
+
+<!-- <div class="w3-container w3-theme w3-card">
+  <h1>Blue</h1>
+</div> -->
+
+<div id='Introduction au projet' class="w3-theme-l0" >
+<div class="w3-container w3-text-theme" >
+<h2>Présentation</h2>
+ <p>Ce travail de visualisation de données porte sur le climat de l'Australie. Des données climatiques ont été récoltées dans 50 stations réparties sur le territoires australien tous les jours pendant 10 ans. Notre objectif est de montrer ces données sous une forme qui permet d'en retirer plus facilement de l'information. Il a fallu dans le cadre de ce travail retravailler le jeu de données afin de regrouper et sélectionner les informations pertinentes. Nous avons également apporté d'autres données à nos visualisations afin de les rendre plus complètes (données sur le phénomène 'El Nino', données sur les densités de population). Notre travail se divise en trois parties associées à trois visualisations. Dans la première l'utilisateur peut visualiser les variables climatiques dans les différentes stations dans le temps. La deuxième rassemble les données climatiques selon les saisons et cherche à montrer de quelle manière certaines conditions climatiques peuvent influencer la densité de population. La troisième visualisation permet de constater pour chaque station la différence des conditions climatiques entre des périodes d'El Nino et d'absence d'El Nino.</p>
+  </div>
+</div>
+
+
+<!-- MAP VISU -->
+<div id='Mapping' class="w3-theme-l5">
+  <div class="w3-container w3-text-theme">
+  <h2>Etude exhaustive des variables climatiques des différentes stations</h2></div>
+  <div id = "checkboxes">
+    <input class="direction" type="radio" name="checkbox" value="MinTemp" onclick="changeVariable('MinTemp')" checked>
+    minTemp
+    <input class="direction" type="radio" name="checkbox" value="MaxTemp" onclick="changeVariable('MaxTemp')">
+    maxTemp
+    <input class="direction" type="radio" name="checkbox" value="Rainfall" onclick="changeVariable('Rainfall')" >
+    Rainfall
+    <input class="direction" type="radio" name="checkbox" value="WindGustSpeed" onclick="changeVariable('WindGustSpeed')">
+    Wind
+    <input class="direction" type="radio" name="checkbox" value="Humidity9am" onclick="changeVariable('Humidity9am')">
+    Humidity
+  </div>
+
+  <div id="map-top" class="block">
+  </div>
+  <div id="chart-bottom" class="block">
+  </div>
+
+  <script src="map.js"></script>
+</div>
+
+
+
+
+
+<!-- SEASONS VISU -->
+
+
+<div id="Seasons" href="#seasons" class="w3-theme-l4">
+  <div class="w3-container w3-text-theme">
+  <h2>Influence des variables climatiques sur la densité de population</h2></div>
+  <p>
+    <input type='radio' onclick="show('Page1');" name = "checkbox" checked>Humidity</span>,
+    <input type='radio' onclick="show('Page2');" name = "checkbox" >Rainfall</span>, 
+    <input type='radio' onclick="show('Page3');" name = "checkbox" >Température</span>
+  </p>
+
+
+  <div id="Page1" class="page" style="">
+   <script src="https://d3js.org/d3.v4.min.js"></script>   
+    <script src="seasons_humidity.js"></script>
+
+  </div>
+
+  <div id="Page2" class="page" style="display:none">
+   <script src="https://d3js.org/d3.v4.min.js"></script>   
+    <script src="seasons_rainfall.js"></script>
+
+  </div>
+
+  <div id="Page3" class="page" style="display:none">
+   <script src="https://d3js.org/d3.v4.min.js"></script>  
+    <script src="seasons_temperature.js"></script>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
