@@ -141,7 +141,7 @@ function lineChart(array, col, Station){
   	.x(function(d, i){ return x_chart(i)})
   	.y(function(d){ return y_chart(d[varToPlot])})
   
-  // CREATE
+  // Line
   g_chart.selectAll('#' + Station)
   	.data([array]).enter().append("path")
   	.attr('class', 'line')
@@ -149,11 +149,12 @@ function lineChart(array, col, Station){
   	.attr('d', line)
   	.style('stroke', col)
   
+  // Text
   g_chart.append('text')
   	.attr('class', Station)
   	.attr('id', 'textChart')
   	.text(Station)
-  	.attr('x', x_chart(100))
+  	.attr('x', x_chart(130))
   	.attr('y', y_chart(array[0][varToPlot]))
   	.style('fill', col)
   
