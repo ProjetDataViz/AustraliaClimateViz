@@ -6,7 +6,7 @@
 <body>
 
 <h1>Impact de el nino sur l'Australie</h1>
-<p>Jaune: avec el nino. <br> Bleu: sans el nino</p>
+<p>Jaune: Avec el nino. <br> Bleu: Sans el nino</p>
 <p>Selectionner une station:</p>
 
 <div class="dropdown">
@@ -256,6 +256,7 @@ param = extractUrlParams();
 ville = param['city'];
 console.log(ville);
 d3.csv("donnees.csv", function(d) {
+ console.log(d.Location)
   if (d.Location==ville){
     return {
       nom : d.nino,
