@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>El nino en australie</title>
 </head>
 <body>
 
 <h1>Impact el nino sur l'Australie</h1>
 <p>Jaune: avec el nino. <br> Bleu: sans el nino</p>
+<p>Selectionner une station:</p>
+
 <div class="dropdown">
  <button class="boutonmenuprincipal">Choix station</button>
  <div class="dropdown-child">
@@ -58,6 +60,7 @@
 <a href=https://projetdataviz.github.io/AustraliaClimateViz/spider?city=Woomera>VisualisationWoomera </a><br>
  </div>
  </div>
+
 </body>
 </html>
 <meta charset="utf-8">
@@ -249,12 +252,8 @@ var svg = d3.select('body').append('svg')
   .attr('height', cfg.h + cfg.h / 4);
 
 //svg.append('g').classed('single', 1).datum(getData()).call(chart);
-ville=""
 param = extractUrlParams();
-  ville = param['city'];
-if (ville==""){
-  ville="Albury";
-}
+ville = param['city'];
 d3.csv("donnees.csv", function(d) {
   if (d.Location==ville){
     return {
@@ -270,4 +269,7 @@ d3.csv("donnees.csv", function(d) {
   svg.append('g').classed('single', 1).datum(getData2(dataset)).call(chart);
 });
 
+
 </script>
+
+
