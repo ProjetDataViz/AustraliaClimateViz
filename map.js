@@ -3,7 +3,8 @@ var margins = {top:30, bottom:30, left:30, right:50}
 var width = 500 - margins.left - margins.right;
 var height = 460 - margins.top - margins.bottom;
 
-arrayTest = [10, 12, 4, 8, 10, 2, 0, 10, 20];
+// Legends of variables
+var legend = {'MinTemp':'°C', 'MaxTemp':'°C', 'Rainfall':'mm/day', 'WindGustSpeed':'km/h', 'Humidity9am':'%'}
 
 // Svg of map
 var svg_map = d3.select("#map-top").append("svg")
@@ -59,6 +60,14 @@ d3.csv('weatherAUS_agg.csv', function(data){
     .attr('transform', 'translate(0,' + height + ')')
     .attr('class', 'xaxis')
     .call(xAxis)
+
+  // xLegend
+  svg_chart.append('text')
+      .text('years')
+      .attr('x', width + margins.left + 15)
+      .attr('y', height + margins.top)
+      .style('font-weight', 'bold')
+
 })
 
 // Colors
@@ -93,6 +102,8 @@ function changeVariable(v){
   
   // Supprime l'ancien axe
   d3.selectAll('.yaxis').remove()
+  svg_chart.select('.legend').remove()
+
   d3.csv('weatherAUS_agg.csv', function(data){
 
     // Get one variable of all array
@@ -105,7 +116,15 @@ function changeVariable(v){
     g_chart.append('g')
       .attr('transform', 'translate(0,0)')
       .attr('class', 'yaxis')
-      .call(yAxis);
+      .call(yAxis)
+
+    // y legend
+    svg_chart.append('text')
+      .attr('class', 'legend')
+      .text(legend[v])
+      .attr('x', 10)
+      .attr('y', 10)
+      .style('font-weight', 'bold')
     
   })
 }
@@ -173,13 +192,19 @@ d3.csv('Cities.csv', function(csv){
     	.attr('class', 'city')
     	
     circles = gcities.append('circle')
-    	.attr('class', 'non_brushed')
+    	.attr('class', function(d, i){
+        // Initialisation de la carte
+          if(i == 46 || i == 47 || i == 29){
+            plotChart(d.Station, colormap(i))
+            return 'brushed'
+        } else{
+            return 'non_brushed'
+          }})
     	.attr('r', 6)
     	.attr('cx', function(d){return projection([d.Longitude, d.Latitude])[0]})
     	.attr('cy', function(d){return projection([d.Longitude, d.Latitude])[1]})
     	.text(function(d){return d.Station})
-    	.attr('fill', function(d,i){
-      return colormap(i)})
+    	.attr('fill', function(d,i){return colormap(i)})
     	/*
     	.on("mouseover", function(d,i){
         return tooltip.style("visibility", "visible")
@@ -217,11 +242,11 @@ function brushed() {
     // Met les cercles de la selection en "brushed" et appelle la fct de plot
     circles.attr('class', function(d,i){
       if(d3.select(this).attr('class', 'non_brushed')){
-        console.log(d['Location'])
         var cx = d3.select(this).attr("cx"),
             cy = d3.select(this).attr("cy");
         if(x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1){
           // Call plot function
+          console.log(i)
           plotChart(d.Station, colormap(i))
           return 'brushed'
         } else{

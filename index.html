@@ -117,9 +117,10 @@ circle{
 
 
 <!-- MAP VISU -->
+<!-- degrés celsius, mm/jour, km/h, % -->
 <div id='Mapping' class="w3-theme-l4">
   <div class="w3-container w3-text-theme">
-  <h2>Etude exhaustive des variables climatiques des différentes stations</h2></div>
+  <h2 >Etude exhaustive des variables climatiques des différentes stations</h2></div>
   <div id = "checkboxes" style="text-indent:20px;">
     <input class="direction" type="radio" name="checkbox" value="MinTemp" onclick="changeVariable('MinTemp')" checked>
     minTemp
@@ -139,6 +140,16 @@ circle{
   </div>
 
   <script src="map.js"></script>
+
+  <div class="w3-container">
+  <p>
+  	Cette première visualisaton exhaustive des différentes variables accouplé à la carte permet d'avoir une vue global du climat en Australie et de discerner différents comportement en fonction des regions. Elle permet dans un premier temps de conclure qu'il n'y a pas de changement significatif du climat en Australie entre 2007 et 2017 (du moins sur les variables étudiées que sont la température, la pluie, l'humidité et le vent). De plus, elle permet de cerner 2 types de climats sur le continent :
+  	<ul> <li> Le Nord qui a des températures maximales autour de 35 °C et des précipitations importantes (pouvant aller jusqu'à 40 mm/jour) </li> <li> Le Sud qui possède des températures maximales plus faibles autour de 25 °C et des précipitations très bassesqui tournent autour de 3 mm/jour </li> </ul>
+
+  	Enfin, on ne discerne pas de différences significative pour le vent et l'humidité entre les différentes villes de l'Australie.
+  </p>
+</div>
+
 </div>
 
 
@@ -146,8 +157,6 @@ circle{
 
 
 <!-- SEASONS VISU -->
-
-
 <div id="Seasons" href="#seasons" class="w3-theme-l5" >
   <div class="w3-container w3-text-theme" >
   <h2>Influence des variables climatiques sur la densité de population</h2></div>
@@ -180,11 +189,14 @@ circle{
 
 <!-- FOOTER -->
 <footer class="w3-container w3-blue">
-	<p>Ce travail a été réalisé dans le cadre de l'UE 'Data Visualisation' des masters 2 'Data Sciences' et 'Intelligence Artificielle' de l'univsersité Claude Bernard Lyon I <br/>
-	<a href="https://github.com/ProjetDataViz/AustraliaClimateViz">Github page</a>
-	<br/>
-	<a href="https://lyondataviz.github.io/teaching/lyon1-m2/2018/tp2.html">UE page</a>
+	<p>Ce travail a été réalisé dans le cadre de l'UE 'Data Visualisation' des masters 2 'Data Sciences' et 'Intelligence Artificielle' de l'univsersité Claude Bernard Lyon I </br>
+		<a href="https://github.com/ProjetDataViz/AustraliaClimateViz">Lien Github</a> </br>
+
+		<a href="https://lyondataviz.github.io/teaching/lyon1-m2/2018/tp2.html">Page de l'UE</a> </br>
+		
+		<a href="https://www.kaggle.com/jsphyg/weather-dataset-rattle-package">Jeu de données</a> 
 	</p>
+		
 </footer>
 
 
